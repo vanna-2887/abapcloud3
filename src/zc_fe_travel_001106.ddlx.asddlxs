@@ -1,0 +1,111 @@
+@Metadata.layer: #CORE
+@UI.headerInfo: {
+    typeNamePlural: 'Travels',
+    typeName: 'Travel',
+    title: { type: #STANDARD, value: 'Description'},
+    description: { type: #STANDARD, value: 'TravelID'}
+}
+annotate entity ZC_FE_Travel_001106 with
+{
+  @UI.lineItem: [{
+      position: 10
+  }]
+  @UI.selectionField: [{
+    position: 10
+  }]
+  TravelID;
+
+  @UI.lineItem: [{
+      position: 20
+  }]
+  @UI.selectionField: [{
+  position: 20
+  }]
+  @UI.identification: [{position: 10}]
+  @UI.facet: [{
+    label: 'General Information',
+    type: #COLLECTION,
+    id: 'GeneralInfo',
+    position: 10
+  }]
+  AgencyID;
+
+  @UI.lineItem: [{
+      position: 30
+  }]
+  @UI.selectionField: [{
+  position: 30
+  }]
+  @UI.identification: [{position: 20}]
+   @UI.facet: [{
+    label: 'General',
+     type: #IDENTIFICATION_REFERENCE,
+     parentId: 'GeneralInfo'  /*The section id*/
+  }]
+  CustomerID;
+
+  @UI.lineItem: [{
+      position: 40
+  }]
+  @UI.fieldGroup: [{qualifier: 'DatesGroup', position: 10}]
+  @UI.facet: [{
+    label: 'Dates',
+    purpose: #STANDARD,
+    position: 30,
+    type: #FIELDGROUP_REFERENCE,
+    parentId: 'GeneralInfo',
+    targetQualifier: 'DatesGroup'
+  }]
+  BeginDate;
+
+  @UI.lineItem: [{
+      position: 50
+  }]
+  @UI.fieldGroup: [{qualifier: 'DatesGroup', position: 20}]
+  EndDate;
+
+  @UI.lineItem: [{
+      position: 60
+  }]
+  @UI.fieldGroup: [{qualifier: 'PricesGroup', position: 20}]
+  BookingFee;
+
+  @UI.lineItem: [{
+      position: 70
+  }]
+  @UI.dataPoint: { qualifier: 'PriceData', title: 'Total Price' }
+  @UI.facet: [{
+       purpose: #HEADER,
+       position: 10,
+       type: #DATAPOINT_REFERENCE,
+       targetQualifier: 'PriceData'
+  },{
+    label: 'Prices',
+    purpose: #STANDARD,
+    position: 20,
+    type: #FIELDGROUP_REFERENCE,
+    parentId: 'GeneralInfo',
+    targetQualifier: 'PricesGroup'
+  }]
+  @UI.fieldGroup: [{qualifier: 'PricesGroup', position: 10}]
+  TotalPrice;
+
+  @UI.lineItem: [{
+      position: 80,
+      criticality: 'OverallStatusCriticality'
+  }]
+  @UI.textArrangement: #TEXT_ONLY
+  @UI.dataPoint: { qualifier: 'StatusData', title: 'Status', criticality: 'OverallStatusCriticality' }
+  @UI.facet: [{
+     purpose: #HEADER,
+     position: 20,
+     type: #DATAPOINT_REFERENCE,
+     targetQualifier: 'StatusData'
+  }]
+  OverallStatus;
+
+  @UI.lineItem: [{
+      position: 90
+  }]
+  LastChangedAt;
+}
